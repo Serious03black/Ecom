@@ -1,12 +1,16 @@
-import React,{useState} from "react";
+import React, { useState,useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { assets } from "../assets/frontend_assets/assets";
+import { ShopContext } from "../context/ShopContext";
 
 const Navbar = () => {
-  const [visible,setvisible] = useState(false)
-    return (
+  const [visible, setvisible] = useState(false);
+  const { setShowSearch } = useContext(ShopContext);
+  return (
     <div className="flex items-center justify-between py-5 font-medium">
-      <Link to="/"><img src={assets.logo} className="w-36" alt="Logo" /></Link>
+      <Link to="/">
+        <img src={assets.logo} className="w-36" alt="Logo" />
+      </Link>
       <ul className="hidden sm:flex gap-5 text-sm text-gray-700">
         <NavLink to="/" className="flex flex-col items-center gap-1">
           <p>Home</p>
@@ -26,7 +30,7 @@ const Navbar = () => {
         </NavLink>
       </ul>
       <div className="flex items-center gap-6">
-        <img src={assets.search_icon} className="w-5 h-5" alt="Search" />
+        <img src={assets.search_icon} onClick={()=>setShowSearch(true)}  className=" cursor-pointer w-5 h-5" alt="Search" />
         <div className="group relative">
           <img
             className="w-5 h-5 cursor-pointer"
@@ -47,22 +51,62 @@ const Navbar = () => {
             10
           </p>
         </Link>
-        <img onClick={()=>setvisible(true)} src={assets.menu_icon} className="w-5 cursor-pointer sm:hidden " alt="" />
+        <img
+          onClick={() => setvisible(true)}
+          src={assets.menu_icon}
+          className="w-5 cursor-pointer sm:hidden "
+          alt=""
+        />
       </div>
       {/* sidebar for small screnn */}
-      <div className={`absolute top-0 right-0 bottom-0 overflow-hidden bg-white transition-all ${visible ? 'w-full' : 'w-0'}`}>
-            <div className='flex flex-col text-gray-600'>
-              <div className='flex items-center gap-4 p-3'>
-                <img onClick={()=>setvisible(false)} src={assets.dropdown_icon} className='h-4 rotate-180 cursor-pointer' alt="" />
-                <p className='cursor-pointer' onClick={()=>setvisible(false)}>Back</p>
-              </div>
-                <NavLink onClick={()=>setvisible(false)} className='py-2 pl-6 border' to='/' >Home</NavLink>
-                <NavLink onClick={()=>setvisible(false)} className='py-2 pl-6 border' to='collection'>collection</NavLink>
-                <NavLink onClick={()=>setvisible(false)} className='py-2 pl-6 border' to='about'>about</NavLink>
-                <NavLink onClick={()=>setvisible(false)} className='py-2 pl-6 border' to='contact'>contact</NavLink>
-            </div>
+      <div
+        className={`absolute top-0 right-0 bottom-0 overflow-hidden bg-white transition-all ${
+          visible ? "w-full" : "w-0"
+        }`}
+      >
+        <div className="flex flex-col text-gray-600">
+          <div className="flex items-center gap-4 p-3">
+            <img
+              onClick={() => setvisible(false)}
+              src={assets.dropdown_icon}
+              className="h-4 rotate-180 cursor-pointer"
+              alt=""
+            />
+            <p className="cursor-pointer" onClick={() => setvisible(false)}>
+              Back
+            </p>
+          </div>
+          <NavLink
+            onClick={() => setvisible(false)}
+            className="py-2 pl-6 border"
+            to="/"
+          >
+            Home
+          </NavLink>
+          <NavLink
+            onClick={() => setvisible(false)}
+            className="py-2 pl-6 border"
+            to="collection"
+          >
+            collection
+          </NavLink>
+          <NavLink
+            onClick={() => setvisible(false)}
+            className="py-2 pl-6 border"
+            to="about"
+          >
+            about
+          </NavLink>
+          <NavLink
+            onClick={() => setvisible(false)}
+            className="py-2 pl-6 border"
+            to="contact"
+          >
+            contact
+          </NavLink>
+        </div>
       </div>
-      </div>
+    </div>
   );
 };
 

@@ -8,5 +8,6 @@ const Title = ({Text1,Text2}) => {
     </div>
   )
 }
+        <Title text1={'RELETED'} text2={'PRODUCT'} />
 
 export default Title
